@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  web:
+    build: .
+    volumes:
+      - .:/host-app
+    ports:
+      - "4200:4200"
+      - "7357:7357"

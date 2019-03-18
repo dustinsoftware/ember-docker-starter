@@ -1,57 +1,19 @@
-# emberconf-preview
+# emberconf-preview (with Docker!)
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This is a fork of https://github.com/embercasts/emberconf-octane-preview to demonstrate Docker + Windows integration. It's still a work in progress! It's untested on OS X but probably works with just `docker-compose up --build`.
 
-## Prerequisites
+Windows has noticeable filesystem I/O lag with Ember, so you may have better build times by using a Linux container.
 
-You will need the following things properly installed on your computer.
+Requirements:
 
-* [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/) (with npm)
-* [Ember CLI](https://ember-cli.com/)
-* [Google Chrome](https://google.com/chrome/)
+- Docker (Linux containers mode). Ensure Docker is configured with at least 4 GB of RAM and 4 available cores, or builds will be much slower.
+- C:\ as a shared drive (use Docker settings to enable this)
+- Node LTS and yarn (for eslint and running npm scripts)
+- .NET Core 2.1.300, used for [DockerVolumeWatcher](https://github.com/dustinsoftware/Docker-Volume-Watcher)
 
-## Installation
+From a command line, run `yarn docker-start`. The container will take a while to restore dependencies the first time, but should be pretty fast after that. Ember serve should now be running, you can confirm this by visiting http://localhost:4200.
 
-* `git clone <repository-url>` this repository
-* `cd emberconf-preview`
-* `npm install`
+#### Recommendations
 
-## Running / Development
-
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
-
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
-### Running Tests
-
-* `ember test`
-* `ember test --server`
-
-### Linting
-
-* `npm run lint:hbs`
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](https://emberjs.com/)
-* [ember-cli](https://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+- Run `yarn docker-start` at the beginning of your workday for a fresh state. It will clean up old artifacts and do some sanity checks for you.
+- If you are switching branches or doing a rebase, bring the container down first with `docker-compose down`. The file watcher sometimes can't keep up with all the files modified when switching commits.
