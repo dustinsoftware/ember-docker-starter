@@ -1,32 +1,32 @@
 <form {{action "submitChanges" on="submit"}}>
   <div class="field">
     <label>Title:</label>
-    {{input type="text" placeholder="Title" value=title}}
+    {{input type="text" placeholder="Title" value=this.title}}
   </div>
 
   <div class="field">
     <label>ISBN:</label>
-    {{input type="text" placeholder="ISBN" value=isbn}}
+    {{input type="text" placeholder="ISBN" value=this.isbn}}
   </div>
 
   <div class="field">
     <label>Publish Date:</label>
-    {{input type="date" placeholder="Publish Date" value=publishDate}}
+    {{input type="date" placeholder="Publish Date" value=this.publishDate}}
   </div>
 
   <div class="field">
     <label>Author:</label>
     <p class="control">
-      {{#ui-select label="Select Author" value=author options=authors onchange=(action "changeAuthor") as |authorOption|}}
+      <Ui-Select label="Select Author" @value={{this.author}} @options={{this.authors}} @onchange={{action "changeAuthor"}} as |authorOption|>
         {{authorOption.last}}, {{authorOption.first}}
-      {{/ui-select}}
+      </Ui-Select>
 
     </p>
   </div>
 
   <div class="field">
     <label>Don't See Your Author?</label>
-    {{new-author-modal onsave=(action (mut author))}}
+    {{new-author-modal onsave=(action (mut this.author))}}
   </div>
 
   <div class="form-footer">

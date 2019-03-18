@@ -10,36 +10,36 @@
       <form {{action "saveUser" on="submit"}}>
         <div class="field">
           <label>Email:</label>
-          {{input type="text" placeholder="Email" value=email}}
+          {{input type="text" placeholder="Email" value=this.email}}
 
-          {{#each errors.email as |error|}}
+          {{#each this.errors.email as |error|}}
             <span class="error-message">{{error.message}}</span>
           {{/each}}
         </div>
 
         <div class="field">
           <label>Username:</label>
-          {{input type="text" placeholder="Username" value=username}}
+          {{input type="text" placeholder="Username" value=this.username}}
 
-          {{#each errors.username as |error|}}
+          {{#each this.errors.username as |error|}}
             <span class="error-message">{{error.message}}</span>
           {{/each}}
         </div>
 
         <div class="field">
           <label>Password:</label>
-          {{input type="password" placeholder="Password" value=password}}
+          {{input type="password" placeholder="Password" value=this.password}}
 
-          {{#each errors.password as |error|}}
+          {{#each this.errors.password as |error|}}
             <span class="error-message">{{error.message}}</span>
           {{/each}}
         </div>
 
         <div class="field">
           <label>Confirm Password:</label>
-          {{input type="password" placeholder="Confirm Password" value=passwordConfirmation}}
+          {{input type="password" placeholder="Confirm Password" value=this.passwordConfirmation}}
 
-          {{#each errors.passwordConfirmation as |error|}}
+          {{#each this.errors.passwordConfirmation as |error|}}
             <span class="error-message">{{error.message}}</span>
           {{/each}}
         </div>

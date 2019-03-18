@@ -1,11 +1,11 @@
 <form {{action "submitChanges" on="submit"}}>
   <div class="field">
     <label>Write Your Review</label>
-    {{textarea type="text" placeholder="Review Text" value=body}}
+    {{textarea type="text" placeholder="Review Text" value=this.body}}
   </div>
 
   <div class="form-footer">
-    {{#link-to "book.detail" book.id class="btn-reset"}}reset{{/link-to}}
+    {{#link-to "book.detail" this.book.id class="btn-reset"}}reset{{/link-to}}
     <button type="submit" class="btn-submit">save</button>
   </div>
 </form>

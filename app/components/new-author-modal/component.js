@@ -1,29 +1,26 @@
 import { inject as service } from '@ember/service';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
+import { action, set } from '@ember/object';
 
-export default Component.extend({
-  store: service('store'),
+export default class NewAuthorModal extends Component {
+  @service()
+  store;
 
-  init() {
-    this._super(...arguments);
+  // passed in
+  onsave = () => {};
 
-    this.set('author', {
-      first: '',
-      last: ''
+  author = { first: 'doof', last: 'mcdoof'};
+
+  @action
+  save(ev) {
+    ev.preventDefault();
+
+    let author = this.store.createRecord('author', this.author);
+
+    author.save().then(() => {
+      set(this, 'showModal', false);
+
+      this.onsave(author);
     });
-  },
-
-  actions: {
-    save(ev) {
-      ev.preventDefault();
-
-      let author = this.get('store').createRecord('author', this.author);
-
-      author.save().then(() => {
-        this.set('showModal', false);
-
-        this.onsave(author);
-      });
-    }
   }
-});
+}

@@ -1,6 +1,6 @@
-<button type="button" class="btn-trigger" {{action (mut showModal) true on="click"}}>Add a New Author</button>
+<button type="button" class="btn-trigger" {{action (mut this.showModal) true on="click"}}>Add a New Author</button>
 
-{{#if showModal}}
+{{#if this.showModal}}
   <div class="modal-if">
     <div class="modal">
       <form class="modal-card" {{action "save" on="submit"}}>
@@ -9,16 +9,16 @@
         <div class="modal-content">
           <div class="field">
             <label>First Name:</label>
-            {{input type="text" placeholder="First Name" value=author.first}}
+            <input type="text" placeholder="First Name" value={{this.author.first}}>
           </div>
           <div class="field">
             <label>Last Name:</label>
-            {{input type="text" placeholder="Last Name" value=author.last}}
+            <input type="text" placeholder="Last Name" value={{this.author.last}}>
           </div>
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn-clear" {{action (mut showModal) false on="click"}}>Cancel</button>
+          <button type="button" class="btn-clear" {{action (mut this.showModal) false on="click"}}>Cancel</button>
           <button type="submit" class="btn-submit">Submit</button>
         </div>
       </form>

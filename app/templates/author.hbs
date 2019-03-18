@@ -1,7 +1,7 @@
 <div class="panel-heading">
   <div class="search">
-    <input value={{search}} {{action (mut search) on="input" value="target.value"}} />
-    {{input type="text" placeholder="Search by Author Name" value=search}}
+    <input value={{this.search}} {{action (mut this.search) on="input" value="target.value"}}>
+    {{input type="text" placeholder="Search by Author Name" value=this.search}}
   </div>
 
   {{#link-to "author.create" class="btn-new"}}
@@ -13,7 +13,7 @@
   <h3 class="panel-title">Authors</h3>
 
   <ul class="collection">
-    {{#each model as |author|}}
+    {{#each this.model as |author|}}
       {{author-list-item first=author.first last=author.last authorId=author.id tagName="li"}}
     {{/each}}
   </ul>
