@@ -15,7 +15,8 @@
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
-    "test": "ember test"
+    "test": "ember test",
+    "docker-start": "powershell -ExecutionPolicy RemoteSigned .\\docker-start.ps1"
   },
   "devDependencies": {
     "@ember-decorators/babel-transforms": "^2.1.2",

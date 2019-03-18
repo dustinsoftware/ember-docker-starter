@@ -1,0 +1,5 @@
+node_modules/
+*.ps1
+.git/
+tmp/
+bower_components/
