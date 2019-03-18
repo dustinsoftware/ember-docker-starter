@@ -4,6 +4,32 @@ RUN apt-get update && apt-get install -y lsyncd nano supervisor
 
 RUN mkdir -p /var/log/supervisor
 
+# Chrome install steps taken from https://hub.docker.com/r/browserless/chrome/dockerfile
+RUN apt-get install -y \
+  fonts-liberation \
+  fontconfig \
+  libappindicator3-1 \
+  libasound2 \
+  libatk1.0-0 \
+  libgtk-3-0 \
+  libnspr4 \
+  libx11-6 \
+  libx11-xcb1 \
+  libxss1 \
+  libxtst6 \
+  libnss3 \
+  lsb-release \
+  xdg-utils \
+  wget \
+  xvfb \
+  curl &&\
+  # Fonts
+  fc-cache -f -v
+
+RUN cd /tmp &&\
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb &&\
+    dpkg -i google-chrome-stable_current_amd64.deb && rm -rf /tmp/*
+
 RUN mkdir -p /app/dist
 
 RUN groupadd -r user \
@@ -31,10 +57,16 @@ RUN yarn install --frozen-lockfile
 # Note: The source will be kept in sync when the Docker container is running!
 COPY --chown=user:user . .
 
-# Do an intial build
-RUN ember build
+# Allow running tests as a part of the docker build
+ARG RUN_TESTS
+ARG SKIP_FIRST_BUILD
+RUN if [ "$RUN_TESTS" ]; then \
+    ember test --launch Chrome; \
+  elif [ ! "$SKIP_FIRST_BUILD" ]; then \
+    ember build; \
+  fi
 
-# Javascript builds happen inside the Docker container run.
+# Future Javascript builds happen inside the Docker container run.
 # This is because volumes can't be accessed during the docker build, and ember serve
 # should be notified right away when source code changes *without* requiring a container rebuild.
 # See docker-compose for volume mounts.
